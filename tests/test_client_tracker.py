@@ -11,11 +11,12 @@ from crm.client_tracker import (
 from crm.storage import save_leads, load_leads
 
 
-@pytest.fixture(autouse=True)
+# Pytest fixture to keep each test independent
+@pytest.fixture(autouse=True)  # Automatically runs before and after every test
 def clear_leads():
-    leads.clear()
-    yield
-    leads.clear()
+    leads.clear()  # Setup: remove existing leads before the test
+    yield          # Pause fixture, execute the test, then resume
+    leads.clear()  # Teardown: remove leads created during the test
 
 
 def test_add_lead():
